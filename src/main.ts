@@ -24,7 +24,9 @@ const loader = new ModelLoader();
 const structures = new StructureManager(scene.scene, loader);
 
 let systems: SystemEntry[] = [];
-let activeSystemId: string | null = null;
+const activeSystems = new Set<string>();
+const placeholderSystems = new Set<string>();
+const systemStructures = new Map<string, Structure[]>(); // cache, by system id
 let currentStructures: Structure[] = [];
 let structureById = new Map<string, Structure>();
 let selection: Selection = null;
@@ -43,7 +45,7 @@ const infoPanel = new InfoPanel(infoEl, {
 });
 
 const sidebar = new Sidebar(sidebarEl, {
-  onSelectSystem: (id) => selectSystem(id),
+  onToggleSystem: (id, active) => setSystemActive(id, active),
   onToggleStructure: (id, visible) => {
     structures.setVisible(id, visible);
     refreshState();
@@ -69,35 +71,55 @@ init();
 async function init(): Promise<void> {
   const index = await loadSystemsIndex();
   systems = index.systems;
-  sidebar.setSystems(systems, null);
-  // Auto-load the only populated system so the slice is visible on first paint.
-  const skeletal = systems.find((s) => s.enabled);
-  if (skeletal) await selectSystem(skeletal.id);
+  // Load the default system (skeletal) so something is visible on first paint.
+  const first = systems.find((s) => s.enabled);
+  if (first) await setSystemActive(first.id, true, /* frame */ true);
+  syncSidebar();
 }
 
-async function selectSystem(id: string): Promise<void> {
+/** Load (active=true) or unload (active=false) a system as a layer. */
+async function setSystemActive(id: string, active: boolean, frame = false): Promise<void> {
   const sys = systems.find((s) => s.id === id);
   if (!sys || !sys.enabled || !sys.manifest) return;
 
-  activeSystemId = sys.id;
-  sidebar.setSystems(systems, sys.id);
-  toggle(loadingEl, true);
+  if (active && !activeSystems.has(id)) {
+    toggle(loadingEl, true);
+    const structs = await loadSystemStructures(sys);
+    const wasEmpty = currentStructures.length === 0;
+    const { anyPlaceholder } = await structures.loadSystem(structs);
+    if (anyPlaceholder) placeholderSystems.add(id);
+    activeSystems.add(id);
+    rebuildCurrent();
+    if (frame || wasEmpty) scene.frameBounds(structures.getBounds());
+    toggle(loadingEl, false);
+  } else if (!active && activeSystems.has(id)) {
+    structures.unloadSystem(id);
+    activeSystems.delete(id);
+    placeholderSystems.delete(id);
+    rebuildCurrent();
+    if (selection && !structureById.has(selection.structure.id)) selection = null;
+  }
 
-  const manifest = await loadSystemManifest(sys.manifest);
-  currentStructures = await loadStructuresForManifest(sys.manifest, manifest);
+  updateBanner();
+  syncSidebar();
+  setSelection(selection);
+}
+
+async function loadSystemStructures(sys: SystemEntry): Promise<Structure[]> {
+  const cached = systemStructures.get(sys.id);
+  if (cached) return cached;
+  const manifest = await loadSystemManifest(sys.manifest!);
+  const structs = await loadStructuresForManifest(sys.manifest!, manifest);
+  systemStructures.set(sys.id, structs);
+  return structs;
+}
+
+/** Recompute the flat list of all currently-loaded structures, in system order. */
+function rebuildCurrent(): void {
+  currentStructures = systems
+    .filter((s) => activeSystems.has(s.id))
+    .flatMap((s) => systemStructures.get(s.id) ?? []);
   structureById = new Map(currentStructures.map((s) => [s.id, s]));
-
-  const { anyPlaceholder } = await structures.setStructures(currentStructures);
-  sidebar.setStructures(currentStructures);
-  scene.frameBounds(structures.getBounds());
-  setSelection(null);
-
-  bannerEl.textContent = anyPlaceholder
-    ? 'Showing placeholder geometry — real models not yet installed (run the conversion pipeline; see README).'
-    : '';
-  toggle(bannerEl, anyPlaceholder);
-  toggle(loadingEl, false);
-  refreshState();
 }
 
 function setSelection(sel: Selection): void {
@@ -108,6 +130,12 @@ function setSelection(sel: Selection): void {
   refreshState();
 }
 
+function syncSidebar(): void {
+  sidebar.setSystems(systems, activeSystems);
+  sidebar.setStructures(currentStructures, systems);
+  refreshState();
+}
+
 function refreshState(): void {
   const visibility = new Map(currentStructures.map((s) => [s.id, structures.isVisible(s.id)]));
   sidebar.setStructureState({
@@ -115,6 +143,14 @@ function refreshState(): void {
     isolatedId: structures.isolated,
     selectedId: selection?.structure.id ?? null,
   });
+}
+
+function updateBanner(): void {
+  const on = placeholderSystems.size > 0;
+  bannerEl.textContent = on
+    ? 'Showing placeholder geometry — real models not yet installed (see README).'
+    : '';
+  toggle(bannerEl, on);
 }
 
 function toggle(el: HTMLElement, on: boolean): void {
@@ -148,8 +184,8 @@ canvas.addEventListener('pointerup', (e) => {
 
 // Expose a little state for debugging / tests in the browser console.
 (window as unknown as Record<string, unknown>).__anatomy = {
-  get activeSystemId() {
-    return activeSystemId;
+  get activeSystems() {
+    return [...activeSystems];
   },
   get structures() {
     return currentStructures;

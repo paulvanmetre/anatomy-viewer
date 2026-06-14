@@ -1,7 +1,7 @@
 import type { Structure, SystemEntry } from '../types';
 
 export interface SidebarCallbacks {
-  onSelectSystem(id: string): void;
+  onToggleSystem(id: string, active: boolean): void;
   onToggleStructure(id: string, visible: boolean): void;
   onIsolate(id: string): void;
   onShowAll(): void;
@@ -40,36 +40,61 @@ export class Sidebar {
     this.root.querySelector('#show-all')!.addEventListener('click', () => this.cb.onShowAll());
   }
 
-  setSystems(systems: SystemEntry[], activeId: string | null): void {
+  /** Render organ systems as toggleable layers (enabled ones can be on/off). */
+  setSystems(systems: SystemEntry[], activeIds: Set<string>): void {
     this.systemsEl.innerHTML = '';
     for (const sys of systems) {
       const li = document.createElement('li');
       li.className = 'system-item';
-      if (!sys.enabled) li.classList.add('disabled');
-      if (sys.id === activeId) li.classList.add('active');
-      li.textContent = sys.name;
       if (!sys.enabled) {
+        li.classList.add('disabled');
+        li.textContent = sys.name;
         const badge = document.createElement('span');
         badge.className = 'soon';
         badge.textContent = 'coming soon';
         li.appendChild(badge);
       } else {
-        li.tabIndex = 0;
-        li.addEventListener('click', () => this.cb.onSelectSystem(sys.id));
-        li.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') this.cb.onSelectSystem(sys.id);
+        const active = activeIds.has(sys.id);
+        if (active) li.classList.add('active');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = active;
+        checkbox.title = 'Show / hide this layer';
+        checkbox.addEventListener('change', () =>
+          this.cb.onToggleSystem(sys.id, checkbox.checked),
+        );
+        const label = document.createElement('span');
+        label.className = 'system-label';
+        label.textContent = sys.name;
+        label.addEventListener('click', () => {
+          checkbox.checked = !checkbox.checked;
+          this.cb.onToggleSystem(sys.id, checkbox.checked);
         });
+        li.append(checkbox, label);
       }
       this.systemsEl.appendChild(li);
     }
   }
 
-  setStructures(structures: Structure[]): void {
+  /** Render the loaded structures, grouped by system. */
+  setStructures(structures: Structure[], systems: SystemEntry[]): void {
     this.structuresEl.innerHTML = '';
     this.rows.clear();
     this.checkboxes.clear();
 
+    const nameOf = new Map(systems.map((s) => [s.id, s.name]));
+    const showGroupHeaders = new Set(structures.map((s) => s.system)).size > 1;
+    let currentSystem: string | null = null;
+
     for (const s of structures) {
+      if (showGroupHeaders && s.system !== currentSystem) {
+        currentSystem = s.system;
+        const header = document.createElement('li');
+        header.className = 'structure-group';
+        header.textContent = nameOf.get(s.system) ?? s.system;
+        this.structuresEl.appendChild(header);
+      }
+
       const li = document.createElement('li');
       li.className = 'structure-item';
 

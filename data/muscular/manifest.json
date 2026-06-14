@@ -1,0 +1,18 @@
+{
+  "system": "muscular",
+  "name": "Muscular System",
+  "regions": [
+    {
+      "id": "upper_limb",
+      "name": "Upper Limb (Right)",
+      "structures": [
+        "structures/deltoid_right.json",
+        "structures/biceps_brachii_right.json",
+        "structures/brachialis_right.json",
+        "structures/triceps_brachii_right.json",
+        "structures/brachioradialis_right.json",
+        "structures/flexor_carpi_radialis_right.json"
+      ]
+    }
+  ]
+}

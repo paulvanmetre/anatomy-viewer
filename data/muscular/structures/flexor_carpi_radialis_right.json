@@ -1,0 +1,19 @@
+{
+  "id": "flexor_carpi_radialis_right",
+  "name": "Right Flexor Carpi Radialis",
+  "system": "muscular",
+  "region": "upper_limb",
+  "parentId": "upper_limb",
+  "fmaId": "FMA:38460",
+  "modelFile": "models/flexor_carpi_radialis_right.glb",
+  "description": "Superficial flexor of the anterior forearm running to the base of the hand; flexes and abducts the wrist.",
+  "classification": "Skeletal muscle",
+  "origin": "Medial epicondyle of the humerus (common flexor origin).",
+  "insertion": "Bases of the second and third metacarpals.",
+  "action": "Flexes and abducts (radially deviates) the wrist.",
+  "innervation": "Median nerve (C6–C7).",
+  "opacity": 0.82,
+  "references": [
+    { "label": "Wikipedia: Flexor carpi radialis muscle", "url": "https://en.wikipedia.org/wiki/Flexor_carpi_radialis_muscle" }
+  ]
+}

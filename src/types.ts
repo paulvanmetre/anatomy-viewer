@@ -43,8 +43,15 @@ export interface Structure {
   classification?: string;
   articulations?: string[];
   muscleAttachments?: string[];
+  /** Muscle-specific detail. */
+  origin?: string;
+  insertion?: string;
+  action?: string;
+  innervation?: string;
   clinical?: string[];
   references?: Reference[];
+  /** 0..1 — render translucent (e.g. muscles over bone). Default 1 (opaque). */
+  opacity?: number;
   placeholder?: PlaceholderHint;
   landmarks?: Landmark[];
 }

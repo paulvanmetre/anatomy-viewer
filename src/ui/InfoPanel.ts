@@ -46,24 +46,28 @@ export class InfoPanel {
 
   private structureBody(structure: Structure): string {
     const landmarks = structure.landmarks ?? [];
-    const landmarkList = landmarks.length
-      ? `<ul class="landmark-list">${landmarks
-          .map(
-            (l) =>
-              `<li><button class="landmark-link" type="button" data-id="${escape(
-                l.id,
-              )}">${escape(l.name)}</button></li>`,
-          )
-          .join('')}</ul>`
-      : `<p class="muted">No landmarks recorded for this structure yet.</p>`;
+    const landmarkSection = landmarks.length
+      ? `<h3 class="subhead">Landmarks (${landmarks.length})</h3>
+         <ul class="landmark-list">${landmarks
+           .map(
+             (l) =>
+               `<li><button class="landmark-link" type="button" data-id="${escape(
+                 l.id,
+               )}">${escape(l.name)}</button></li>`,
+           )
+           .join('')}</ul>`
+      : '';
 
     return `
       <p class="info-desc">${escape(structure.description)}</p>
       ${structure.classification ? detailLine('Type', structure.classification) : ''}
+      ${structure.origin ? detailLine('Origin', structure.origin) : ''}
+      ${structure.insertion ? detailLine('Insertion', structure.insertion) : ''}
+      ${structure.action ? detailLine('Action', structure.action) : ''}
+      ${structure.innervation ? detailLine('Innervation', structure.innervation) : ''}
       ${bulletSection('Articulations', structure.articulations)}
       ${bulletSection('Muscle attachments', structure.muscleAttachments)}
-      <h3 class="subhead">Landmarks ${landmarks.length ? `(${landmarks.length})` : ''}</h3>
-      ${landmarkList}
+      ${landmarkSection}
       ${bulletSection('Clinical notes', structure.clinical)}`;
   }
 

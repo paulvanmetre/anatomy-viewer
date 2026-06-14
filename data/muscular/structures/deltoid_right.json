@@ -1,0 +1,22 @@
+{
+  "id": "deltoid_right",
+  "name": "Right Deltoid",
+  "system": "muscular",
+  "region": "upper_limb",
+  "parentId": "upper_limb",
+  "fmaId": "FMA:32521",
+  "modelFile": "models/deltoid_right.glb",
+  "description": "Large triangular shoulder muscle that caps the glenohumeral joint and gives the shoulder its rounded contour.",
+  "classification": "Skeletal muscle",
+  "origin": "Lateral third of the clavicle, the acromion, and the spine of the scapula.",
+  "insertion": "Deltoid tuberosity of the humerus.",
+  "action": "Abducts the arm (middle fibres); anterior fibres flex and medially rotate, posterior fibres extend and laterally rotate the arm.",
+  "innervation": "Axillary nerve (C5–C6).",
+  "opacity": 0.82,
+  "clinical": [
+    "Axillary nerve injury (surgical-neck fracture or shoulder dislocation) paralyses the deltoid, causing loss of arm abduction and a flattened shoulder."
+  ],
+  "references": [
+    { "label": "Wikipedia: Deltoid muscle", "url": "https://en.wikipedia.org/wiki/Deltoid_muscle" }
+  ]
+}

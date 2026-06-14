@@ -18,6 +18,11 @@
     "classification": { "type": "string" },
     "articulations": { "type": "array", "items": { "type": "string" } },
     "muscleAttachments": { "type": "array", "items": { "type": "string" } },
+    "origin": { "type": "string" },
+    "insertion": { "type": "string" },
+    "action": { "type": "string" },
+    "innervation": { "type": "string" },
+    "opacity": { "type": "number", "minimum": 0, "maximum": 1 },
     "clinical": { "type": "array", "items": { "type": "string" } },
     "references": {
       "type": "array",

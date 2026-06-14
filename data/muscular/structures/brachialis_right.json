@@ -1,0 +1,19 @@
+{
+  "id": "brachialis_right",
+  "name": "Right Brachialis",
+  "system": "muscular",
+  "region": "upper_limb",
+  "parentId": "upper_limb",
+  "fmaId": "FMA:37668",
+  "modelFile": "models/brachialis_right.glb",
+  "description": "Deep muscle of the anterior arm lying beneath the biceps; the main workhorse flexor of the elbow.",
+  "classification": "Skeletal muscle",
+  "origin": "Distal half of the anterior surface of the humerus.",
+  "insertion": "Coronoid process and tuberosity of the ulna.",
+  "action": "Flexes the elbow in all forearm positions.",
+  "innervation": "Musculocutaneous nerve (C5–C6), with a small lateral contribution from the radial nerve.",
+  "opacity": 0.82,
+  "references": [
+    { "label": "Wikipedia: Brachialis muscle", "url": "https://en.wikipedia.org/wiki/Brachialis_muscle" }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "biceps_brachii_right",
+  "name": "Right Biceps Brachii",
+  "system": "muscular",
+  "region": "upper_limb",
+  "parentId": "upper_limb",
+  "fmaId": "FMA:37670",
+  "modelFile": "models/biceps_brachii_right.glb",
+  "description": "Two-headed muscle of the anterior arm, best known for flexing the elbow and supinating the forearm.",
+  "classification": "Skeletal muscle",
+  "origin": "Long head from the supraglenoid tubercle of the scapula; short head from the coracoid process.",
+  "insertion": "Radial tuberosity and, via the bicipital aponeurosis, the deep fascia of the forearm.",
+  "action": "Flexes the elbow and supinates the forearm; weak flexor of the shoulder.",
+  "innervation": "Musculocutaneous nerve (C5–C6).",
+  "opacity": 0.82,
+  "clinical": [
+    "Rupture of the long-head tendon produces a 'Popeye' deformity — a bulge in the lower arm."
+  ],
+  "references": [
+    { "label": "Wikipedia: Biceps", "url": "https://en.wikipedia.org/wiki/Biceps" }
+  ]
+}

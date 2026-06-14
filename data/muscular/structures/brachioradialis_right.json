@@ -1,0 +1,19 @@
+{
+  "id": "brachioradialis_right",
+  "name": "Right Brachioradialis",
+  "system": "muscular",
+  "region": "upper_limb",
+  "parentId": "upper_limb",
+  "fmaId": "FMA:38486",
+  "modelFile": "models/brachioradialis_right.glb",
+  "description": "Prominent superficial muscle of the lateral forearm that flexes the elbow, especially in mid-pronation.",
+  "classification": "Skeletal muscle",
+  "origin": "Lateral supracondylar ridge of the humerus.",
+  "insertion": "Distal radius, just proximal to the styloid process.",
+  "action": "Flexes the elbow; strongest when the forearm is in a neutral (mid-prone) position.",
+  "innervation": "Radial nerve (C5–C6).",
+  "opacity": 0.82,
+  "references": [
+    { "label": "Wikipedia: Brachioradialis", "url": "https://en.wikipedia.org/wiki/Brachioradialis" }
+  ]
+}

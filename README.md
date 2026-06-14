@@ -1,12 +1,14 @@
-# Anatomy Viewer — v0 (Skeletal · Upper Limb)
+# Anatomy Viewer — v0 (Skeletal + Muscular · Upper Limb)
 
 **Live demo:** https://paulvanmetre.github.io/anatomy-viewer/
 
-An interactive 3D anatomy viewer for medical students. v0 is a deliberately
-narrow **vertical slice**: the skeletal system, upper-limb region, five
-separately selectable bones, with named landmark annotations on the humerus.
-Everything else (other systems, full body, search, quizzes) is out of scope but
-the architecture makes adding it a **data change, not a code change**.
+An interactive 3D anatomy viewer for medical students. The vertical slice covers
+the right upper limb: the **skeletal system** (five bones, with named landmarks
+on the humerus) and the **muscular system** (six major muscles), which can be
+**layered over the bones** and toggled independently. Everything else (other
+systems, full body, search, quizzes) is out of scope, but the architecture makes
+adding it a **data change, not a code change** — the muscular system was added
+exactly that way (new GLBs + JSON, one small viewer change for layering).
 
 > **Share-alike notice.** This application is distributed under
 > **CC BY-SA 4.0**. The 3D anatomy data is **BodyParts3D**, © The Database
@@ -40,10 +42,13 @@ npm run validate    # CLI manifest/renderability report (add --strict to require
 
 - **Scene & camera** — Three.js scene, lighting, ground grid, `OrbitControls`
   (pan / zoom / rotate; one-finger orbit, two-finger dolly+pan on touch).
-- **Organ-system navigation** — sidebar lists all systems; only **Skeletal** is
-  enabled, the rest are shown disabled ("coming soon").
+- **Organ-system layers** — sidebar lists all systems; **Skeletal** and
+  **Muscular** are enabled and can be toggled **on together** (muscles layer over
+  the bones); the rest are disabled ("coming soon"). Loaded structures are
+  grouped by system, and switching a layer off disposes its GPU resources.
 - **Layer toggle** — per-structure show/hide checkboxes + **isolate** (hide
-  everything else) with a reversible **Show all**.
+  everything else) with a reversible **Show all**. Muscles render translucent
+  (per-structure `opacity`) so the skeleton reads through them.
 - **Click-to-select + info pop-out** — raycast selection highlights the mesh and
   opens an info panel: name, Latin name, system/region/FMA chips, description,
   bone type, **articulations**, **muscle attachments**, landmark list,
@@ -148,11 +153,19 @@ here. `ratio` is the decimation target (0.3 ≈ keep 30% of triangles).
 node scripts/convert.mjs scripts/.cache/humerus_right.stl public/models/humerus_right.glb 1 0.001 -90
 ```
 
-`STLLoader → (SimplifyModifier) → GLTFExporter → gltf-pipeline (Draco)`. The Node
-exporter has no up-axis convention, so pass **`-90`** to rotate Z-up→Y-up. This
-build used **`ratio 1`** (no decimation — Draco handles size; ~608 KB total for
-all five bones, scapula being 490 KB / 113k tris). Lower the ratio, or use the
-Blender path, to also reduce triangle count for production.
+`STLLoader → merge → (SimplifyModifier) → GLTFExporter → gltf-pipeline (Draco)`.
+The Node exporter has no up-axis convention, so pass **`-90`** to rotate
+Z-up→Y-up. This build used **`ratio 1`** (no decimation — Draco handles size).
+
+BodyParts3D splits some structures into parts (e.g. muscle heads), so the input
+accepts a **comma-separated list** that gets merged into one GLB, plus an
+optional **color** (muscles are reddish):
+
+```bash
+# biceps = short head + long head, muscle-red
+node scripts/convert.mjs scripts/.cache/FMA37684.stl,scripts/.cache/FMA37686.stl \
+  public/models/biceps_brachii_right.glb 1 0.001 -90 a8473b
+```
 
 ### 3. Verify
 

@@ -62,6 +62,20 @@ Pipeline used: `fetch-bodyparts3d.mjs` → `convert.mjs <stl> <glb> 1 0.001 -90`
 (scale mm→m, rotate Z-up→Y-up, no decimation; Draco only). Humerus landmarks
 re-snapped to the real mesh via `gen-humerus-landmarks.mjs`.
 
+## Muscular system — DONE (layered)
+
+Added the muscular system as a second layer over the bones (same BodyParts3D
+coordinate frame). Six right upper-limb muscles, each merged from its
+BodyParts3D parts and converted muscle-red, rendered translucent (`opacity`):
+deltoid (3 parts), biceps brachii (2 heads), triceps brachii (3 heads),
+brachialis, brachioradialis, flexor carpi radialis. ~1.9 MB GLB total, lazy-loaded
+when the layer is toggled on.
+
+Viewer change: systems are now **additive layers** (toggle on/off, grouped in the
+sidebar) instead of single-select; `StructureManager.loadSystem`/`unloadSystem`
+add/dispose a system without touching others. Muscle panels show
+origin/insertion/action/innervation (adapted from Wikipedia, CC BY-SA).
+
 ## Acceptance checklist — status
 
 Legend: ✅ verified in-browser/CI · 🟡 implemented, needs a real device

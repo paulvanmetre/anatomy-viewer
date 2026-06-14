@@ -59,17 +59,24 @@ html, body {
 .systems, .structures { list-style: none; margin: 0; padding: 0; }
 
 .system-item {
-  padding: 9px 10px; border-radius: 7px; cursor: pointer; display: flex;
-  align-items: center; justify-content: space-between; gap: 8px;
+  padding: 8px 10px; border-radius: 7px; display: flex;
+  align-items: center; gap: 8px;
 }
-.system-item:hover { background: var(--panel-2); }
-.system-item.active { background: var(--accent); color: #fff; }
-.system-item.disabled { color: var(--muted); cursor: default; }
-.system-item.disabled:hover { background: none; }
+.system-item input[type="checkbox"] { accent-color: var(--accent-2); width: 16px; height: 16px; }
+.system-label { flex: 1; cursor: pointer; }
+.system-item:hover:not(.disabled) { background: var(--panel-2); }
+.system-item.active { background: var(--panel-2); outline: 1px solid var(--accent); }
+.system-item.disabled { color: var(--muted); justify-content: space-between; }
 .soon {
   font-size: 10px; color: var(--muted); border: 1px solid var(--border);
   border-radius: 4px; padding: 1px 5px; white-space: nowrap;
 }
+
+.structure-group {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted); margin: 14px 0 4px; padding: 0 4px; list-style: none;
+}
+.structure-group:first-child { margin-top: 2px; }
 
 .structures-header { display: flex; align-items: center; justify-content: space-between; }
 

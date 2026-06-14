@@ -1,0 +1,19 @@
+{
+  "id": "triceps_brachii_right",
+  "name": "Right Triceps Brachii",
+  "system": "muscular",
+  "region": "upper_limb",
+  "parentId": "upper_limb",
+  "fmaId": "FMA:37688",
+  "modelFile": "models/triceps_brachii_right.glb",
+  "description": "Three-headed muscle filling the posterior arm; the principal extensor of the elbow.",
+  "classification": "Skeletal muscle",
+  "origin": "Long head from the infraglenoid tubercle of the scapula; lateral and medial heads from the posterior surface of the humerus.",
+  "insertion": "Olecranon process of the ulna.",
+  "action": "Extends the elbow; the long head also extends and adducts the shoulder.",
+  "innervation": "Radial nerve (C6–C8).",
+  "opacity": 0.82,
+  "references": [
+    { "label": "Wikipedia: Triceps", "url": "https://en.wikipedia.org/wiki/Triceps" }
+  ]
+}

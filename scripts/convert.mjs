@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 // Node fallback conversion path (use when Blender is not available):
-//   STL -> decimate (SimplifyModifier) -> GLB -> Draco (gltf-pipeline).
+//   STL(s) -> merge -> decimate (SimplifyModifier) -> GLB -> Draco (gltf-pipeline).
 //
 // Usage:
-//   node scripts/convert.mjs <input.stl> <output.glb> [ratio] [scale]
-//   node scripts/convert.mjs scripts/.cache/humerus_right.stl public/models/humerus_right.glb 0.3 0.001
+//   node scripts/convert.mjs <input.stl[,input2.stl,...]> <output.glb> [ratio] [scale] [rotXdeg] [colorHex]
+//   node scripts/convert.mjs in.stl public/models/humerus_right.glb 1 0.001 -90
+//   # merge multiple parts (e.g. the heads of a muscle) into one GLB:
+//   node scripts/convert.mjs a.stl,b.stl public/models/biceps_brachii_right.glb 0.45 0.001 -90 c0473b
 //
 // The Blender path (scripts/convert-blender.py) is the primary, most reliable
 // route and is what the README documents first. This script exists so the
@@ -15,6 +17,7 @@ import * as THREE from 'three';
 import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 import { SimplifyModifier } from 'three/addons/modifiers/SimplifyModifier.js';
 import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import gltfPipeline from 'gltf-pipeline';
 
 // three's GLTFExporter is browser-oriented and uses FileReader/Blob to emit the
@@ -37,24 +40,40 @@ if (typeof globalThis.FileReader === 'undefined') {
   };
 }
 
-const [, , input, output, ratioArg, scaleArg, rotXArg] = process.argv;
+const [, , input, output, ratioArg, scaleArg, rotXArg, colorArg] = process.argv;
 if (!input || !output) {
-  console.error('Usage: node scripts/convert.mjs <input.stl> <output.glb> [ratio] [scale] [rotXdeg]');
+  console.error(
+    'Usage: node scripts/convert.mjs <input.stl[,input2,...]> <output.glb> [ratio] [scale] [rotXdeg] [colorHex]',
+  );
   process.exit(1);
 }
 const ratio = ratioArg ? Number(ratioArg) : 0.3;
 const scale = scaleArg ? Number(scaleArg) : 0.001;
 // BodyParts3D is Z-up (mm). Bake a -90° X rotation so the model is Y-up for
-// three.js. Keep this identical across all bones (and do NOT recenter) so the
-// shared coordinate frame is preserved and the bones assemble correctly.
+// three.js. Keep this identical across all structures (and do NOT recenter) so
+// the shared coordinate frame is preserved and everything assembles correctly.
 const rotXdeg = rotXArg ? Number(rotXArg) : 0;
+const color = colorArg ? parseInt(colorArg.replace('#', ''), 16) : 0xe9e1d1;
 
-// 1) Load + prepare geometry.
-const buffer = fs.readFileSync(input);
-const ab = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
-let geometry = new STLLoader().parse(ab);
-if (rotXdeg) geometry.rotateX((rotXdeg * Math.PI) / 180);
-geometry.scale(scale, scale, scale);
+// 1) Load each input STL, transform consistently, and merge into one geometry.
+// (BodyParts3D splits some structures — e.g. muscle heads — into separate files.)
+const inputs = input.split(',').map((s) => s.trim()).filter(Boolean);
+const parts = inputs.map((file) => {
+  const buf = fs.readFileSync(file);
+  const ab = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
+  const g = new STLLoader().parse(ab);
+  if (rotXdeg) g.rotateX((rotXdeg * Math.PI) / 180);
+  g.scale(scale, scale, scale);
+  // Keep only position so all parts share identical attributes before merge.
+  g.deleteAttribute('normal');
+  g.deleteAttribute('uv');
+  return g;
+});
+let geometry = parts.length === 1 ? parts[0] : mergeGeometries(parts, false);
+if (!geometry) {
+  console.error('mergeGeometries failed — inputs have mismatched attributes.');
+  process.exit(1);
+}
 geometry.computeVertexNormals();
 
 // 2) Decimate to the target triangle budget.
@@ -76,7 +95,7 @@ console.log(
 // 3) Export to GLB (uncompressed) via three.
 const mesh = new THREE.Mesh(
   geometry,
-  new THREE.MeshStandardMaterial({ color: 0xe9e1d1, roughness: 0.8, metalness: 0 }),
+  new THREE.MeshStandardMaterial({ color, roughness: 0.8, metalness: 0 }),
 );
 const scene = new THREE.Scene();
 scene.add(mesh);

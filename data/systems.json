@@ -6,7 +6,12 @@
       "enabled": true,
       "manifest": "skeletal/manifest.json"
     },
-    { "id": "muscular", "name": "Muscular", "enabled": false },
+    {
+      "id": "muscular",
+      "name": "Muscular",
+      "enabled": true,
+      "manifest": "muscular/manifest.json"
+    },
     { "id": "nervous", "name": "Nervous", "enabled": false },
     { "id": "cardiovascular", "name": "Cardiovascular", "enabled": false },
     { "id": "respiratory", "name": "Respiratory", "enabled": false },

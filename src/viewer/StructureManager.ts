@@ -42,12 +42,12 @@ export class StructureManager {
     this.scene.add(this.root);
   }
 
-  /** Replace all currently-loaded structures. Returns whether any are placeholders. */
-  async setStructures(structures: Structure[]): Promise<{ anyPlaceholder: boolean }> {
-    this.clear();
+  /** Add a system's structures to the scene (additive — does not clear others). */
+  async loadSystem(structures: Structure[]): Promise<{ anyPlaceholder: boolean }> {
     let anyPlaceholder = false;
 
     for (const structure of structures) {
+      if (this.entries.has(structure.id)) continue; // already loaded
       const { object: model, isPlaceholder } = await this.loader.load(structure);
       if (isPlaceholder) anyPlaceholder = true;
 
@@ -61,6 +61,10 @@ export class StructureManager {
         if (t) group.position.set(t[0], t[1], t[2]);
         const r = structure.placeholder?.rotation;
         if (r) group.rotation.set(r[0], r[1], r[2]);
+      }
+
+      if (structure.opacity !== undefined && structure.opacity < 1) {
+        applyOpacity(model, structure.opacity);
       }
 
       group.add(model);
@@ -87,6 +91,23 @@ export class StructureManager {
 
     this.updateLabelVisibility();
     return { anyPlaceholder };
+  }
+
+  /** Remove and dispose every structure belonging to a system. */
+  unloadSystem(systemId: string): void {
+    for (const [id, entry] of this.entries) {
+      if (entry.structure.system !== systemId) continue;
+      this.root.remove(entry.group);
+      disposeObject(entry.group);
+      entry.markers.forEach((m) => m.label.element.remove());
+      this.entries.delete(id);
+      if (this.selectedStructureId === id) {
+        this.selectedStructureId = null;
+        this.selectedLandmarkId = null;
+      }
+      if (this.isolatedId === id) this.isolatedId = null;
+    }
+    this.updateLabelVisibility();
   }
 
   private buildMarkers(structure: Structure, radius: number): MarkerHandle[] {
@@ -260,6 +281,19 @@ export class StructureManager {
     this.clear();
     this.scene.remove(this.root);
   }
+}
+
+/** Make every material under an object translucent (e.g. muscle over bone). */
+function applyOpacity(root: THREE.Object3D, opacity: number): void {
+  root.traverse((o) => {
+    const mesh = o as THREE.Mesh;
+    if (!mesh.isMesh) return;
+    const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+    for (const m of materials) {
+      m.transparent = true;
+      m.opacity = opacity;
+    }
+  });
 }
 
 /** Recursively free geometries, materials and textures under an object. */
