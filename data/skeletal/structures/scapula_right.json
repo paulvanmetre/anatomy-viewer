@@ -1,0 +1,36 @@
+{
+  "id": "scapula_right",
+  "name": "Right Scapula",
+  "system": "skeletal",
+  "region": "upper_limb",
+  "parentId": "upper_limb",
+  "fmaId": "FMA:13395",
+  "modelFile": "models/scapula_right.glb",
+  "description": "Flat triangular bone of the shoulder girdle. Its glenoid cavity receives the head of the humerus; the acromion and coracoid process are prominent landmarks.",
+  "latinName": "Scapula",
+  "classification": "Flat bone",
+  "articulations": [
+    "Head of the humerus (at the glenoid cavity) — glenohumeral (shoulder) joint",
+    "Acromial end of the clavicle (at the acromion) — acromioclavicular joint"
+  ],
+  "muscleAttachments": [
+    "Subscapularis — subscapular fossa",
+    "Supraspinatus and infraspinatus — supraspinous and infraspinous fossae",
+    "Deltoid — spine and acromion",
+    "Trapezius, rhomboids, serratus anterior — borders and spine"
+  ],
+  "clinical": [
+    "Scapular fractures are uncommon and, due to the protected location, usually signal severe chest trauma.",
+    "Winged scapula results from serratus anterior paralysis (long thoracic nerve injury)."
+  ],
+  "references": [
+    { "label": "Wikipedia: Scapula", "url": "https://en.wikipedia.org/wiki/Scapula" }
+  ],
+  "placeholder": {
+    "shape": "flat-bone",
+    "size": [1.1, 1.3, 0.16],
+    "color": "#e6ddca",
+    "offset": [-0.95, 1.7, -0.45]
+  },
+  "landmarks": []
+}

@@ -1,0 +1,38 @@
+{
+  "id": "radius_right",
+  "name": "Right Radius",
+  "system": "skeletal",
+  "region": "upper_limb",
+  "parentId": "upper_limb",
+  "fmaId": "FMA:23464",
+  "modelFile": "models/radius_right.glb",
+  "description": "Lateral bone of the forearm. Its head articulates with the capitulum of the humerus; distally it forms the major articulation of the wrist.",
+  "latinName": "Radius",
+  "classification": "Long bone",
+  "articulations": [
+    "Capitulum of the humerus — elbow joint",
+    "Radial notch of the ulna (proximal) and ulnar notch (distal) — radioulnar joints",
+    "Scaphoid and lunate carpal bones — wrist (radiocarpal) joint"
+  ],
+  "muscleAttachments": [
+    "Biceps brachii — radial tuberosity",
+    "Supinator — proximal third",
+    "Pronator teres — mid-lateral shaft",
+    "Flexor pollicis longus — anterior surface",
+    "Pronator quadratus — distal quarter"
+  ],
+  "clinical": [
+    "Colles' fracture: a distal radius fracture with dorsal displacement, typically from a fall on an outstretched hand.",
+    "Essex-Lopresti injury: radial head fracture with distal radioulnar joint dislocation."
+  ],
+  "references": [
+    { "label": "Wikipedia: Radius (bone)", "url": "https://en.wikipedia.org/wiki/Radius_(bone)" }
+  ],
+  "placeholder": {
+    "shape": "long-bone",
+    "size": [0.16, 2.6, 0.16],
+    "color": "#e3dac6",
+    "offset": [0.26, -3.0, 0.0]
+  },
+  "landmarks": []
+}

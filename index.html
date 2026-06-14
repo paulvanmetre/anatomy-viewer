@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Anatomy Viewer — v0 (Skeletal · Upper Limb)</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Left: organ-system + structure navigation -->
+      <aside id="sidebar" class="panel"></aside>
+
+      <!-- Center: 3D canvas + overlays -->
+      <main id="stage">
+        <div id="canvas-container"></div>
+        <div id="placeholder-banner" class="banner hidden"></div>
+        <div id="loading" class="loading hidden">Loading…</div>
+      </main>
+
+      <!-- Right: info pop-out (hidden until a structure/landmark is selected) -->
+      <section id="info-panel" class="panel hidden"></section>
+
+      <!-- Footer: attribution (CC BY-SA requirement) -->
+      <footer id="footer"></footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

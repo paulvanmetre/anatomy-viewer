@@ -1,0 +1,15 @@
+{
+  "systems": [
+    {
+      "id": "skeletal",
+      "name": "Skeletal",
+      "enabled": true,
+      "manifest": "skeletal/manifest.json"
+    },
+    { "id": "muscular", "name": "Muscular", "enabled": false },
+    { "id": "nervous", "name": "Nervous", "enabled": false },
+    { "id": "cardiovascular", "name": "Cardiovascular", "enabled": false },
+    { "id": "respiratory", "name": "Respiratory", "enabled": false },
+    { "id": "digestive", "name": "Digestive", "enabled": false }
+  ]
+}

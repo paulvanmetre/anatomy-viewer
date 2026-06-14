@@ -1,0 +1,3 @@
+# Optimized Draco GLB files go here (one per structure, e.g. humerus_right.glb).
+# Produced by the conversion pipeline — see ../../README.md and ../../scripts/.
+# Until they exist, the app renders clearly-marked placeholder geometry.

@@ -1,0 +1,87 @@
+{
+  "id": "humerus_right",
+  "name": "Right Humerus",
+  "system": "skeletal",
+  "region": "upper_limb",
+  "parentId": "upper_limb",
+  "fmaId": "FMA:23130",
+  "modelFile": "models/humerus_right.glb",
+  "description": "Long bone of the upper arm. Articulates proximally with the glenoid cavity of the scapula and distally with the radius and ulna at the elbow.",
+  "latinName": "Humerus",
+  "classification": "Long bone",
+  "articulations": [
+    "Glenoid cavity of the scapula — glenohumeral (shoulder) joint",
+    "Head of the radius (via the capitulum) — elbow joint",
+    "Trochlear notch of the ulna (via the trochlea) — elbow joint"
+  ],
+  "muscleAttachments": [
+    "Deltoid — inserts at the deltoid tuberosity",
+    "Rotator cuff: supraspinatus, infraspinatus, teres minor — greater tubercle",
+    "Subscapularis — lesser tubercle",
+    "Pectoralis major, teres major, latissimus dorsi — intertubercular groove",
+    "Triceps brachii — posterior shaft"
+  ],
+  "clinical": [
+    "Surgical neck is a common fracture site; the axillary nerve and posterior circumflex humeral artery wrap around it.",
+    "Mid-shaft fractures can injure the radial nerve as it runs in the spiral groove."
+  ],
+  "references": [
+    { "label": "Wikipedia: Humerus", "url": "https://en.wikipedia.org/wiki/Humerus" }
+  ],
+  "placeholder": {
+    "shape": "long-bone",
+    "size": [0.22, 3.0, 0.22],
+    "color": "#e9e1d1",
+    "offset": [0, 0, 0]
+  },
+  "landmarks": [
+    {
+      "id": "head",
+      "name": "Head",
+      "position": [-0.1667, 1.3405, 0.0575],
+      "description": "Rounded proximal articular surface that fits into the glenoid cavity of the scapula."
+    },
+    {
+      "id": "greater_tubercle",
+      "name": "Greater tubercle",
+      "position": [-0.1895, 1.3228, 0.0756],
+      "description": "Lateral prominence; attachment for supraspinatus, infraspinatus, and teres minor."
+    },
+    {
+      "id": "lesser_tubercle",
+      "name": "Lesser tubercle",
+      "position": [-0.1841, 1.3225, 0.0849],
+      "description": "Anterior prominence; attachment site for the subscapularis muscle."
+    },
+    {
+      "id": "deltoid_tuberosity",
+      "name": "Deltoid tuberosity",
+      "position": [-0.2077, 1.1921, 0.0715],
+      "description": "Roughened V-shaped area on the mid-lateral shaft; insertion site of the deltoid muscle."
+    },
+    {
+      "id": "medial_epicondyle",
+      "name": "Medial epicondyle",
+      "position": [-0.1783, 1.0588, 0.0648],
+      "description": "Distal medial projection; common origin of the forearm flexor muscles. The ulnar nerve passes posterior to it."
+    },
+    {
+      "id": "lateral_epicondyle",
+      "name": "Lateral epicondyle",
+      "position": [-0.2372, 1.0545, 0.0722],
+      "description": "Distal lateral projection; common origin of the forearm extensor muscles."
+    },
+    {
+      "id": "capitulum",
+      "name": "Capitulum",
+      "position": [-0.2191, 1.0514, 0.0738],
+      "description": "Rounded lateral articular surface that articulates with the head of the radius."
+    },
+    {
+      "id": "trochlea",
+      "name": "Trochlea",
+      "position": [-0.1825, 1.0562, 0.0684],
+      "description": "Spool-shaped medial articular surface that articulates with the trochlear notch of the ulna."
+    }
+  ]
+}

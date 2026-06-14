@@ -1,0 +1,15 @@
+node_modules
+dist
+*.local
+.DS_Store
+
+# Draco decoder is copied from three on postinstall — not source.
+public/draco
+
+# Large/working source meshes for the conversion pipeline are not committed.
+# Final optimized GLBs in public/models ARE committed (see README).
+scripts/.cache
+*.stl
+*.obj
+*.blend
+*.blend1

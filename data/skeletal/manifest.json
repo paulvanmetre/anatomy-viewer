@@ -1,0 +1,17 @@
+{
+  "system": "skeletal",
+  "name": "Skeletal System",
+  "regions": [
+    {
+      "id": "upper_limb",
+      "name": "Upper Limb (Right)",
+      "structures": [
+        "structures/scapula_right.json",
+        "structures/clavicle_right.json",
+        "structures/humerus_right.json",
+        "structures/radius_right.json",
+        "structures/ulna_right.json"
+      ]
+    }
+  ]
+}

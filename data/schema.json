@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://anatomy-viewer/schema/structure.json",
+  "title": "AnatomicalStructure",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "system", "region", "modelFile", "description"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+    "name": { "type": "string", "minLength": 1 },
+    "system": { "type": "string", "enum": ["skeletal", "muscular", "nervous", "cardiovascular", "respiratory", "digestive"] },
+    "region": { "type": "string", "minLength": 1 },
+    "parentId": { "type": "string" },
+    "fmaId": { "type": "string", "pattern": "^FMA:?[0-9]+$" },
+    "modelFile": { "type": "string", "pattern": "^models/.+\\.glb$" },
+    "description": { "type": "string", "minLength": 1 },
+    "latinName": { "type": "string" },
+    "classification": { "type": "string" },
+    "articulations": { "type": "array", "items": { "type": "string" } },
+    "muscleAttachments": { "type": "array", "items": { "type": "string" } },
+    "clinical": { "type": "array", "items": { "type": "string" } },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "url"],
+        "properties": {
+          "label": { "type": "string", "minLength": 1 },
+          "url": { "type": "string", "pattern": "^https?://" }
+        }
+      }
+    },
+    "placeholder": {
+      "type": "object",
+      "description": "Procedural fallback used before the real GLB is installed. Optional once a real model exists.",
+      "additionalProperties": false,
+      "required": ["shape", "size", "color"],
+      "properties": {
+        "shape": { "type": "string", "enum": ["long-bone", "flat-bone", "block"] },
+        "size": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+        "color": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+        "rotation": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+        "offset": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 }
+      }
+    },
+    "landmarks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "position", "description"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+          "name": { "type": "string", "minLength": 1 },
+          "position": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+          "description": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

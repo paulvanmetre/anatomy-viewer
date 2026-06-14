@@ -1,0 +1,38 @@
+{
+  "id": "clavicle_right",
+  "name": "Right Clavicle",
+  "system": "skeletal",
+  "region": "upper_limb",
+  "parentId": "upper_limb",
+  "fmaId": "FMA:13322",
+  "modelFile": "models/clavicle_right.glb",
+  "description": "S-shaped strut connecting the upper limb to the axial skeleton. Articulates medially with the sternum and laterally with the acromion of the scapula.",
+  "latinName": "Clavicula",
+  "classification": "Long bone (the only horizontal long bone in the body)",
+  "articulations": [
+    "Manubrium of the sternum — sternoclavicular joint",
+    "Acromion of the scapula — acromioclavicular joint"
+  ],
+  "muscleAttachments": [
+    "Deltoid — anterior border, lateral third",
+    "Trapezius — superior surface, lateral third",
+    "Pectoralis major — anterior border, medial third",
+    "Sternocleidomastoid (clavicular head) — medial end",
+    "Subclavius — inferior surface"
+  ],
+  "clinical": [
+    "The clavicle is the most commonly fractured bone in the body.",
+    "Fractures usually occur at the junction of its two curves (middle third), often from a fall on an outstretched hand or the shoulder."
+  ],
+  "references": [
+    { "label": "Wikipedia: Clavicle", "url": "https://en.wikipedia.org/wiki/Clavicle" }
+  ],
+  "placeholder": {
+    "shape": "long-bone",
+    "size": [0.12, 1.7, 0.12],
+    "color": "#ece3d0",
+    "offset": [-0.45, 2.15, 0.15],
+    "rotation": [0, 0, 1.35]
+  },
+  "landmarks": []
+}

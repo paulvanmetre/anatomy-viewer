@@ -1,0 +1,38 @@
+{
+  "id": "ulna_right",
+  "name": "Right Ulna",
+  "system": "skeletal",
+  "region": "upper_limb",
+  "parentId": "upper_limb",
+  "fmaId": "FMA:23467",
+  "modelFile": "models/ulna_right.glb",
+  "description": "Medial bone of the forearm. Its trochlear notch articulates with the trochlea of the humerus, forming the hinge of the elbow joint.",
+  "latinName": "Ulna",
+  "classification": "Long bone",
+  "articulations": [
+    "Trochlea of the humerus (at the trochlear notch) — elbow (hinge) joint",
+    "Head of the radius (at the radial notch) — proximal radioulnar (pivot) joint",
+    "Ulnar notch of the distal radius — distal radioulnar joint"
+  ],
+  "muscleAttachments": [
+    "Triceps brachii — olecranon process",
+    "Brachialis — coronoid process",
+    "Flexor digitorum profundus — anteromedial surface",
+    "Flexor carpi ulnaris — olecranon and posterior border",
+    "Extensor carpi ulnaris — posterior border"
+  ],
+  "clinical": [
+    "Monteggia fracture: a fracture of the proximal ulna with dislocation of the radial head.",
+    "A direct blow to the forearm raised in defence can fracture the shaft (a 'nightstick' fracture)."
+  ],
+  "references": [
+    { "label": "Wikipedia: Ulna", "url": "https://en.wikipedia.org/wiki/Ulna" }
+  ],
+  "placeholder": {
+    "shape": "long-bone",
+    "size": [0.17, 2.7, 0.17],
+    "color": "#ded4bf",
+    "offset": [-0.16, -3.05, -0.05]
+  },
+  "landmarks": []
+}
