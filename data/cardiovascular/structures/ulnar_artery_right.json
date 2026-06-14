@@ -1,0 +1,17 @@
+{
+  "id": "ulnar_artery_right",
+  "name": "Right Ulnar Artery",
+  "system": "cardiovascular",
+  "region": "upper_limb",
+  "parentId": "upper_limb",
+  "modelFile": "models/ulnar_artery_right.glb",
+  "description": "Larger medial terminal branch of the brachial artery. Descends the medial forearm to the hand, forming the bulk of the superficial palmar arch.",
+  "classification": "Artery",
+  "schematic": true,
+  "clinical": [
+    "Accompanied by the ulnar nerve in the distal forearm; both are vulnerable at the wrist (Guyon's canal)."
+  ],
+  "references": [
+    { "label": "Wikipedia: Ulnar artery", "url": "https://en.wikipedia.org/wiki/Ulnar_artery" }
+  ]
+}

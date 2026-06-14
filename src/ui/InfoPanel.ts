@@ -33,6 +33,7 @@ export class InfoPanel {
         <span class="chip">${escape(structure.system)}</span>
         <span class="chip">${escape(structure.region)}</span>
         ${structure.fmaId ? `<span class="chip mono">${escape(structure.fmaId)}</span>` : ''}
+        ${structure.schematic ? `<span class="chip schematic">schematic</span>` : ''}
       </div>`;
 
     const body =

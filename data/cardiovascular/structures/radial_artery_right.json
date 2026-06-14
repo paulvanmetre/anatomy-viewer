@@ -1,0 +1,17 @@
+{
+  "id": "radial_artery_right",
+  "name": "Right Radial Artery",
+  "system": "cardiovascular",
+  "region": "upper_limb",
+  "parentId": "upper_limb",
+  "modelFile": "models/radial_artery_right.glb",
+  "description": "Lateral terminal branch of the brachial artery. Descends the lateral forearm to the wrist and contributes to the deep palmar arch.",
+  "classification": "Artery",
+  "schematic": true,
+  "clinical": [
+    "Palpated at the wrist for the radial pulse; a common access site for arterial lines and cardiac catheterisation (Allen test first)."
+  ],
+  "references": [
+    { "label": "Wikipedia: Radial artery", "url": "https://en.wikipedia.org/wiki/Radial_artery" }
+  ]
+}

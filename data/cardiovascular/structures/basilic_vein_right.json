@@ -1,0 +1,17 @@
+{
+  "id": "basilic_vein_right",
+  "name": "Right Basilic Vein",
+  "system": "cardiovascular",
+  "region": "upper_limb",
+  "parentId": "upper_limb",
+  "modelFile": "models/basilic_vein_right.glb",
+  "description": "Superficial vein of the medial upper limb. Ascends the medial forearm and arm; in the cubital fossa it is linked to the cephalic vein by the median cubital vein.",
+  "classification": "Vein",
+  "schematic": true,
+  "clinical": [
+    "The median cubital vein that connects it to the cephalic vein is the classic site for drawing blood."
+  ],
+  "references": [
+    { "label": "Wikipedia: Basilic vein", "url": "https://en.wikipedia.org/wiki/Basilic_vein" }
+  ]
+}

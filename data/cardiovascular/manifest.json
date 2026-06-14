@@ -1,0 +1,17 @@
+{
+  "system": "cardiovascular",
+  "name": "Cardiovascular System",
+  "regions": [
+    {
+      "id": "upper_limb",
+      "name": "Upper Limb (Right) — schematic",
+      "structures": [
+        "structures/brachial_artery_right.json",
+        "structures/radial_artery_right.json",
+        "structures/ulnar_artery_right.json",
+        "structures/cephalic_vein_right.json",
+        "structures/basilic_vein_right.json"
+      ]
+    }
+  ]
+}

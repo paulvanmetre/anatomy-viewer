@@ -1,14 +1,20 @@
-# Anatomy Viewer — v0 (Skeletal + Muscular · Upper Limb)
+# Anatomy Viewer — v0 (Skeletal + Muscular + Cardiovascular · Upper Limb)
 
 **Live demo:** https://paulvanmetre.github.io/anatomy-viewer/
 
 An interactive 3D anatomy viewer for medical students. The vertical slice covers
-the right upper limb: the **skeletal system** (five bones, with named landmarks
-on the humerus) and the **muscular system** (six major muscles), which can be
-**layered over the bones** and toggled independently. Everything else (other
-systems, full body, search, quizzes) is out of scope, but the architecture makes
-adding it a **data change, not a code change** — the muscular system was added
-exactly that way (new GLBs + JSON, one small viewer change for layering).
+the right upper limb across three layerable systems: **skeletal** (five bones,
+named humerus landmarks), **muscular** (six muscles, translucent over bone), and
+**cardiovascular** (five major vessels). Any combination can be layered and
+toggled independently. Everything else (other systems, full body, search,
+quizzes) is out of scope, but the architecture makes adding it a **data change,
+not a code change** — muscular and cardiovascular were both added that way.
+
+> **Note on the vessels:** BodyParts3D contains no arm vessels (only the great
+> central vessels), so the cardiovascular layer is **schematic** — the arteries
+> and veins are procedurally routed along their anatomical course and anchored to
+> the real bones, clearly flagged "schematic" in-app. They are approximations,
+> not scanned models. Bones and muscles are real BodyParts3D scans.
 
 > **Share-alike notice.** This application is distributed under
 > **CC BY-SA 4.0**. The 3D anatomy data is **BodyParts3D**, © The Database

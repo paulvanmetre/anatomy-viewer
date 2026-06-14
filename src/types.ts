@@ -52,6 +52,8 @@ export interface Structure {
   references?: Reference[];
   /** 0..1 — render translucent (e.g. muscles over bone). Default 1 (opaque). */
   opacity?: number;
+  /** True for procedurally-approximated models (e.g. schematic vessels). */
+  schematic?: boolean;
   placeholder?: PlaceholderHint;
   landmarks?: Landmark[];
 }

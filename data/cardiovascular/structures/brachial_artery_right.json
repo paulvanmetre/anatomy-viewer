@@ -1,0 +1,17 @@
+{
+  "id": "brachial_artery_right",
+  "name": "Right Brachial Artery",
+  "system": "cardiovascular",
+  "region": "upper_limb",
+  "parentId": "upper_limb",
+  "modelFile": "models/brachial_artery_right.glb",
+  "description": "Main artery of the arm and continuation of the axillary artery. Runs down the medial arm to the cubital fossa, where it divides into the radial and ulnar arteries.",
+  "classification": "Artery",
+  "schematic": true,
+  "clinical": [
+    "Compressible against the humerus — the standard site for measuring blood pressure with a cuff and for assessing the brachial pulse."
+  ],
+  "references": [
+    { "label": "Wikipedia: Brachial artery", "url": "https://en.wikipedia.org/wiki/Brachial_artery" }
+  ]
+}

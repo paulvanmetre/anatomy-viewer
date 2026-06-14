@@ -76,6 +76,18 @@ sidebar) instead of single-select; `StructureManager.loadSystem`/`unloadSystem`
 add/dispose a system without touching others. Muscle panels show
 origin/insertion/action/innervation (adapted from Wikipedia, CC BY-SA).
 
+## Cardiovascular system — DONE (schematic)
+
+BodyParts3D has **no arm vessels** (searched the full lookup: only great/central
+vessels + subclavian; no axillary/brachial/radial/ulnar arteries or cephalic/
+basilic veins). With the user's go-ahead, the cardiovascular layer is therefore
+**schematic**: `scripts/gen-vessels.mjs` procedurally routes the brachial/radial/
+ulnar arteries (red) and cephalic/basilic veins (blue) as tubes along their
+anatomical course, anchored to the real bone coordinate frame, exported as tiny
+GLBs (~4 KB each). Each is flagged `schematic: true` and shows a "schematic" chip
+in the panel. Nerves were declined for the same dataset reason (only the optic
+nerve exists in BodyParts3D); real nerves/vessels would need Z-Anatomy + Blender.
+
 ## Acceptance checklist — status
 
 Legend: ✅ verified in-browser/CI · 🟡 implemented, needs a real device

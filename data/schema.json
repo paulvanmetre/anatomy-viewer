@@ -23,6 +23,7 @@
     "action": { "type": "string" },
     "innervation": { "type": "string" },
     "opacity": { "type": "number", "minimum": 0, "maximum": 1 },
+    "schematic": { "type": "boolean" },
     "clinical": { "type": "array", "items": { "type": "string" } },
     "references": {
       "type": "array",
