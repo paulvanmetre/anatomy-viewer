@@ -31,27 +31,51 @@ if (typeof globalThis.FileReader === 'undefined') {
 const ARTERY = 0xc0392b;
 const VEIN = 0x2e5fa3;
 
-// Waypoints in the shared BodyParts3D frame: shoulder ~y1.35 down to wrist ~y0.82.
+// Waypoints in the shared BodyParts3D frame, hand-tuned to hug the real bones.
+// The arm angles laterally toward the wrist (humerus x≈-0.15..-0.19 up high;
+// radius/ulna x≈-0.21..-0.27 lower), so the vessels track that shift instead of
+// running straight. Anterior (higher z) = superficial. Radii are thin (arteries
+// ~3.5 mm, veins ~4.5 mm at scale) so they read as vessels, not rods.
 const vessels = [
   {
-    id: 'brachial_artery_right', color: ARTERY, radius: 0.005,
-    points: [[-0.155, 1.36, 0.085], [-0.160, 1.25, 0.095], [-0.166, 1.12, 0.106], [-0.170, 1.04, 0.115]],
+    // Medial–anterior arm, axilla to cubital fossa.
+    id: 'brachial_artery_right', color: ARTERY, radius: 0.0036,
+    points: [
+      [-0.150, 1.345, 0.108], [-0.158, 1.26, 0.112], [-0.165, 1.17, 0.116],
+      [-0.172, 1.10, 0.119], [-0.178, 1.045, 0.121],
+    ],
   },
   {
-    id: 'radial_artery_right', color: ARTERY, radius: 0.0042,
-    points: [[-0.173, 1.03, 0.115], [-0.205, 0.95, 0.110], [-0.235, 0.88, 0.104], [-0.255, 0.83, 0.100]],
+    // Lateral forearm, along the radius to the wrist.
+    id: 'radial_artery_right', color: ARTERY, radius: 0.0032,
+    points: [
+      [-0.182, 1.04, 0.120], [-0.205, 0.985, 0.116], [-0.228, 0.925, 0.110],
+      [-0.248, 0.865, 0.104], [-0.262, 0.825, 0.100],
+    ],
   },
   {
-    id: 'ulnar_artery_right', color: ARTERY, radius: 0.0042,
-    points: [[-0.168, 1.03, 0.112], [-0.180, 0.95, 0.100], [-0.192, 0.87, 0.092], [-0.200, 0.82, 0.088]],
+    // Medial forearm, along the ulna to the wrist.
+    id: 'ulnar_artery_right', color: ARTERY, radius: 0.0032,
+    points: [
+      [-0.176, 1.04, 0.117], [-0.188, 0.975, 0.107], [-0.198, 0.905, 0.098],
+      [-0.206, 0.855, 0.091], [-0.210, 0.825, 0.087],
+    ],
   },
   {
-    id: 'cephalic_vein_right', color: VEIN, radius: 0.0052,
-    points: [[-0.255, 0.86, 0.120], [-0.245, 1.00, 0.131], [-0.230, 1.15, 0.141], [-0.205, 1.30, 0.150]],
+    // Superficial lateral vein: lateral wrist up to the deltopectoral groove.
+    id: 'cephalic_vein_right', color: VEIN, radius: 0.0044,
+    points: [
+      [-0.262, 0.84, 0.118], [-0.246, 0.92, 0.128], [-0.226, 1.02, 0.136],
+      [-0.205, 1.14, 0.142], [-0.186, 1.255, 0.146], [-0.172, 1.33, 0.148],
+    ],
   },
   {
-    id: 'basilic_vein_right', color: VEIN, radius: 0.0052,
-    points: [[-0.198, 0.85, 0.116], [-0.180, 0.98, 0.121], [-0.162, 1.12, 0.126], [-0.150, 1.22, 0.130]],
+    // Superficial medial vein: medial wrist up the medial arm.
+    id: 'basilic_vein_right', color: VEIN, radius: 0.0044,
+    points: [
+      [-0.206, 0.835, 0.116], [-0.193, 0.93, 0.122], [-0.179, 1.03, 0.127],
+      [-0.166, 1.13, 0.131], [-0.156, 1.215, 0.133],
+    ],
   },
 ];
 
