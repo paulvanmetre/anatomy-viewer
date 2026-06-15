@@ -13,12 +13,7 @@
       "manifest": "muscular/manifest.json"
     },
     { "id": "nervous", "name": "Nervous", "enabled": false },
-    {
-      "id": "cardiovascular",
-      "name": "Cardiovascular",
-      "enabled": true,
-      "manifest": "cardiovascular/manifest.json"
-    },
+    { "id": "cardiovascular", "name": "Cardiovascular", "enabled": false },
     { "id": "respiratory", "name": "Respiratory", "enabled": false },
     { "id": "digestive", "name": "Digestive", "enabled": false }
   ]
